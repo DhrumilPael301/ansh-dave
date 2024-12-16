@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.K.A.I</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 50px;
+        }
+        .container {
+            background-color: #000000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .logo {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: bounceIn 2s ease-in-out;
+        }
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .download-buttons {
+            margin-top: 20px;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: slideIn 1.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .download-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+        ul {
+            animation: fadeInUp 2s ease-in-out;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            animation: fadeIn 2s ease-in-out;
+        }
+        /* Visitor count styles */
+        .visitor-count {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        /* Feedback box styles */
+        .feedback-box {
+            display: none;
+            margin-top: 20px;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .feedback-box textarea {
+            width: 100%;
+            height: 80px;
+            border-radius: 5px;
+            border: 1px solid #888;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .feedback-box button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .feedback-box button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="visitor-count" id="visitorCount">Visitor Count: 0</div>
+
+    <!-- Welcome Popup Modal -->
+    <div class="modal" id="welcomeModal">
+        <div class="modal-content">
+            <h2>Welcome to S.K.A.I!</h2>
+            <p>Your ultimate AI companion awaits. Get started now!</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <img src="S.K.A.I.png" alt="S.K.A.I Logo" class="logo">
+        <h1>WELCOME TO S.K.A.I</h1>
+        <p>Your ultimate AI companion. Download now to get started!</p>
+        <div class="download-buttons">
+            <a href="S.K.A.I.exe" class="download-button" id="downloadBtn">Download for WINDOWS</a>
+        </div>
+        <p id="downloadCount">Downloads: 0</p>
+        <h2>Features</h2>
+        <ul style="text-align: left; display: inline-block;">
+            <li>Personalized AI Assistance</li>
+            <li>Seamless Integration with Your Workflow</li>
+            <li>Customizable Settings for Maximum Efficiency</li>
+            <li>Real-Time Updates and Support</li>
+        </ul>
+
+        <div class="feedback-box" id="feedbackBox">
+            <h3>We value your feedback!</h3>
+            <textarea id="feedback" placeholder="Let us know what you think..."></textarea>
+            <button id="submitFeedback">Submit Feedback</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 S.K.A.I. BY AD  All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Visitor count logic
+        let visitorCount = localStorage.getItem('visitorCount') || 0;
+        visitorCount++;
+        localStorage.setItem('visitorCount', visitorCount);
+        document.getElementById('visitorCount').innerText = `Visitor Count: ${visitorCount}`;
+
+        // Handle download count and feedback
+        let downloadCount = 0;
+        document.getElementById('downloadBtn').addEventListener('click', function(event) {
+            downloadCount++;
+            document.getElementById('downloadCount').innerText = `Downloads: ${downloadCount}`;
+            document.getElementById('feedbackBox').style.display = 'block';
+        });
+
+        // Handle feedback submission
+        document.getElementById('submitFeedback').addEventListener('click', function() {
+            const feedback = document.getElementById('feedback').value;
+            if (feedback) {
+                alert('Thank you for your feedback!');
+                document.getElementById('feedbackBox').style.display = 'none';
+                document.getElementById('feedback').value = '';
+            } else {
+                alert('Please enter your feedback before submitting.');
+            }
+        });
+
+        // Welcome modal functionality
+        const welcomeModal = document.getElementById('welcomeModal');
+        const closeModal = document.getElementById('closeModal');
+
+        // Show the modal on page load
+        window.addEventListener('load', () => {
+            welcomeModal.classList.add('show');
+        });
+
+        // Close the modal on button click
+        closeModal.addEventListener('click', () => {
+            welcomeModal.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
